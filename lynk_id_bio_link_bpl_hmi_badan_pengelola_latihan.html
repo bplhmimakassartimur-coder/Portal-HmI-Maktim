@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Badan Pengelola Latihan (BPL) HMI | @bpl.hmi.official</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Plus Jakarta Sans & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        hmi: {
+                            green: '#046307',
+                            darkGreen: '#064e3b',
+                            emerald: '#10b981',
+                            black: '#0f172a',
+                            charcoal: '#111827',
+                            gold: '#d97706',
+                            amber: '#f59e0b'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Pola geometris latar belakang luar ala Lynk.id */
+        .outer-bg-pattern {
+            background-color: #071912;
+            background-image: 
+                radial-gradient(circle at 20% 20%, rgba(4, 99, 7, 0.35) 0%, transparent 45%),
+                radial-gradient(circle at 80% 80%, rgba(217, 119, 6, 0.18) 0%, transparent 45%),
+                radial-gradient(#10b981 0.85px, transparent 0.85px);
+            background-size: 100% 100%, 100% 100%, 24px 24px;
+        }
+        /* Hide scrollbar untuk tab navigasi horizontal */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="outer-bg-pattern min-h-screen flex justify-center items-start sm:py-8 sm:px-4 antialiased selection:bg-hmi-green selection:text-white">
+
+    <!-- ==================== MAIN LYNK BIO-LINK CONTAINER (MAX-WIDTH 480PX) ==================== -->
+    <main id="app-card" class="w-full max-w-[480px] min-h-screen sm:min-h-0 bg-slate-50 dark:bg-hmi-charcoal text-gray-800 dark:text-gray-100 sm:rounded-[32px] shadow-2xl shadow-black/60 border-x sm:border border-white/15 overflow-hidden relative transition-colors duration-300">
+        
+        <!-- ==================== 1. HEADER & COVER BANNER ==================== -->
+        <div class="relative">
+            <!-- Cover Banner Hijau-Hitam Perkaderan -->
+            <div class="h-36 bg-gradient-to-br from-black via-hmi-darkGreen to-hmi-green relative overflow-hidden">
+                <div class="absolute inset-0 opacity-20" style="background-image: repeating-linear-gradient(45deg, #10b981 0, #10b981 1px, transparent 0, transparent 14px);"></div>
+                <div class="absolute -right-8 -bottom-8 w-40 h-40 rounded-full bg-amber-500/20 blur-2xl"></div>
+                
+                <!-- Top Floating Action Bar (Share & Theme Toggle) -->
+                <div class="relative z-10 flex items-center justify-between px-4 pt-4">
+                    <span class="px-3 py-1 rounded-full bg-black/40 backdrop-blur-md border border-white/15 text-[11px] font-semibold text-amber-300 tracking-wide">
+                        lynk.id/bpl.hmi
+                    </span>
+                    <div class="flex items-center gap-2">
+                        <!-- Toggle Light / Dark Mode -->
+                        <button onclick="toggleTheme()" id="theme-toggle-btn" title="Ganti Tema Terang/Gelap" class="w-9 h-9 rounded-full bg-black/40 hover:bg-black/60 backdrop-blur-md border border-white/15 text-white flex items-center justify-center transition-all active:scale-95">
+                            <i id="theme-icon" class="fa-solid fa-moon text-sm text-amber-300"></i>
+                        </button>
+                        <!-- Share Profile Button -->
+                        <button onclick="shareProfile()" title="Bagikan Profil" class="px-3.5 h-9 rounded-full bg-black/40 hover:bg-black/60 backdrop-blur-md border border-white/15 text-white text-xs font-semibold flex items-center gap-1.5 transition-all active:scale-95">
+                            <i class="fa-solid fa-arrow-up-from-bracket text-emerald-300"></i>
+                            <span>Share</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Avatar / Emblem BPL HMI Overlapping -->
+            <div class="px-5 pb-4 text-center relative">
+                <div class="relative inline-block -mt-12 mb-3">
+                    <div class="w-24 h-24 rounded-3xl bg-gradient-to-br from-hmi-green via-hmi-darkGreen to-black p-1 shadow-xl border-2 border-amber-400/70 mx-auto">
+                        <div class="w-full h-full rounded-[20px] bg-hmi-charcoal flex items-center justify-center">
+                            <!-- Custom SVG Emblem BPL HMI -->
+                            <svg class="w-14 h-14" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M24 4L41 14V34L24 44L7 34V14L24 4Z" stroke="#F59E0B" stroke-width="2.2" fill="#064E3B"/>
+                                <path d="M24 11C18 11 13.5 15.5 13.5 21.5C13.5 27.5 18 32 24 32C21.3 29.3 20 25.5 20 21.5C20 17.5 21.3 13.7 24 11Z" fill="white"/>
+                                <polygon points="29.5,16 31,19.7 35,20 32,22.6 32.9,26.5 29.5,24.4 26.1,26.5 27,22.6 24,20 28,19.7" fill="#FBBF24"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <!-- Verified Organization Badge -->
+                    <div title="Terverifikasi Resmi PB HMI" class="absolute -bottom-1 -right-1 w-7 h-7 rounded-full bg-emerald-500 border-2 border-white dark:border-hmi-charcoal text-white flex items-center justify-center shadow-md text-xs">
+                        <i class="fa-solid fa-check"></i>
+                    </div>
+                </div>
+
+                <!-- Nama Lembaga & Handle -->
+                <h1 class="font-display font-extrabold text-xl tracking-tight text-gray-900 dark:text-white leading-snug">
+                    Badan Pengelola Latihan (BPL) HMI
+                </h1>
+                <p class="text-xs font-semibold text-hmi-green dark:text-emerald-400 mt-0.5">
+                    @bpl.hmi.official
+                </p>
+
+                <!-- Bio Singkat -->
+                <p class="text-xs sm:text-[13px] text-gray-600 dark:text-gray-300 mt-2.5 leading-relaxed max-w-sm mx-auto">
+                    Lembaga Semi Otonom HMI • Pusat Kendali Mutu Perkaderan, Kurikulum Training &amp; Sertifikasi Instruktur.
+                </p>
+
+                <!-- Social Media Quick Icons -->
+                <div class="flex items-center justify-center gap-3 mt-4">
+                    <a href="https://instagram.com" target="_blank" aria-label="Instagram" class="w-9 h-9 rounded-full bg-white dark:bg-white/10 border border-gray-200 dark:border-white/15 text-gray-700 dark:text-gray-200 hover:bg-hmi-green hover:text-white hover:border-hmi-green flex items-center justify-center shadow-sm transition-all">
+                        <i class="fa-brands fa-instagram text-base"></i>
+                    </a>
+                    <a href="https://youtube.com" target="_blank" aria-label="YouTube" class="w-9 h-9 rounded-full bg-white dark:bg-white/10 border border-gray-200 dark:border-white/15 text-gray-700 dark:text-gray-200 hover:bg-hmi-green hover:text-white hover:border-hmi-green flex items-center justify-center shadow-sm transition-all">
+                        <i class="fa-brands fa-youtube text-base"></i>
+                    </a>
+                    <a href="https://tiktok.com" target="_blank" aria-label="TikTok" class="w-9 h-9 rounded-full bg-white dark:bg-white/10 border border-gray-200 dark:border-white/15 text-gray-700 dark:text-gray-200 hover:bg-hmi-green hover:text-white hover:border-hmi-green flex items-center justify-center shadow-sm transition-all">
+                        <i class="fa-brands fa-tiktok text-sm"></i>
+                    </a>
+                    <a href="#website-resmi" onclick="showToast('Membuka Portal Resmi bplpbhmi.or.id')" aria-label="Website Resmi" class="w-9 h-9 rounded-full bg-white dark:bg-white/10 border border-gray-200 dark:border-white/15 text-gray-700 dark:text-gray-200 hover:bg-hmi-green hover:text-white hover:border-hmi-green flex items-center justify-center shadow-sm transition-all">
+                        <i class="fa-solid fa-globe text-sm"></i>
+                    </a>
+                    <button onclick="openModal('konsultasi')" aria-label="WhatsApp Admin" class="w-9 h-9 rounded-full bg-white dark:bg-white/10 border border-gray-200 dark:border-white/15 text-gray-700 dark:text-gray-200 hover:bg-hmi-green hover:text-white hover:border-hmi-green flex items-center justify-center shadow-sm transition-all">
+                        <i class="fa-brands fa-whatsapp text-base"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== 2. TAB NAVIGASI KATEGORI ALA LYNK.ID ==================== -->
+        <div class="sticky top-0 z-20 bg-slate-50/95 dark:bg-hmi-charcoal/95 backdrop-blur-md px-4 py-2.5 border-y border-gray-200/80 dark:border-white/10">
+            <div class="flex items-center gap-2 overflow-x-auto no-scrollbar">
+                <button onclick="filterLinks('all')" data-cat="all" class="cat-tab shrink-0 px-4 py-2 rounded-full text-xs font-bold bg-hmi-green text-white shadow-sm transition-all">
+                    Semua Tautan
+                </button>
+                <button onclick="filterLinks('events')" data-cat="events" class="cat-tab shrink-0 px-4 py-2 rounded-full text-xs font-semibold bg-white dark:bg-white/5 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-white/10 hover:border-hmi-green transition-all">
+                    Pendaftaran &amp; Training
+                </button>
+                <button onclick="filterLinks('docs')" data-cat="docs" class="cat-tab shrink-0 px-4 py-2 rounded-full text-xs font-semibold bg-white dark:bg-white/5 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-white/10 hover:border-hmi-green transition-all">
+                    Modul &amp; Dokumen
+                </button>
+            </div>
+        </div>
+
+        <!-- ==================== 3. DAFTAR TAUTAN UTAMA (INTERACTIVE LINK CARDS) ==================== -->
+        <div class="p-4 space-y-3.5" id="links-container">
+
+            <!-- FEATURED CARD (HIGHLIGHT): Pendaftaran Senior Course (SC) Nasional 2026 -->
+            <div data-category="events" class="link-item rounded-2xl bg-gradient-to-br from-black via-hmi-darkGreen to-hmi-green p-4 text-white shadow-lg border border-amber-400/40 relative overflow-hidden group">
+                <div class="absolute -right-6 -top-6 w-24 h-24 rounded-full bg-amber-400/15 blur-xl pointer-events-none"></div>
+                <div class="flex items-start justify-between gap-2">
+                    <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-amber-400 text-black text-[10px] font-extrabold uppercase tracking-wider">
+                        <span class="w-1.5 h-1.5 rounded-full bg-black animate-ping"></span>
+                        DIBUKA • KUOTA TERBATAS
+                    </span>
+                    <span class="text-[11px] font-semibold text-emerald-200 bg-white/10 px-2.5 py-0.5 rounded-full">
+                        Sisa 14 Kursi
+                    </span>
+                </div>
+
+                <div class="mt-3 flex items-start gap-3.5">
+                    <div class="w-11 h-11 rounded-xl bg-white/15 border border-white/20 flex items-center justify-center text-amber-300 text-lg shrink-0">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                    </div>
+                    <div>
+                        <h2 class="font-display font-bold text-base leading-snug text-white">
+                            Pendaftaran Senior Course (SC) Nasional 2026
+                        </h2>
+                        <p class="text-xs text-gray-200 mt-1 leading-relaxed">
+                            Pendidikan calon instruktur &amp; pengelola latihan HMI tingkat nasional. Karantina 8 hari efektif.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="mt-4 pt-3 border-t border-white/15 flex items-center justify-between gap-3">
+                    <div class="text-[11px] text-amber-300 font-medium">
+                        <i class="fa-regular fa-calendar mr-1"></i> 12–20 Des 2026
+                    </div>
+                    <button onclick="openModal('daftar-sc')" class="px-4 py-2 rounded-xl bg-amber-400 hover:bg-amber-300 text-black font-display font-bold text-xs shadow-md transition-all flex items-center gap-1.5 active:scale-95">
+                        <span>Daftar Sekarang</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- CARD 2: Cek Status Kelulusan Screening & Nilai -->
+            <button onclick="openModal('cek-screening')" data-category="events" class="link-item w-full text-left rounded-2xl bg-white dark:bg-white/[0.06] hover:bg-emerald-50/60 dark:hover:bg-white/10 p-3.5 border border-gray-200 dark:border-white/10 hover:border-hmi-green dark:hover:border-emerald-400 shadow-sm transition-all flex items-center justify-between gap-3 group active:scale-[0.99]">
+                <div class="flex items-center gap-3.5">
+                    <div class="w-11 h-11 rounded-xl bg-emerald-50 dark:bg-emerald-500/20 text-hmi-green dark:text-emerald-300 flex items-center justify-center text-lg shrink-0 group-hover:bg-hmi-green group-hover:text-white transition-colors">
+                        <i class="fa-solid fa-magnifying-glass-chart"></i>
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <h3 class="font-display font-bold text-sm text-gray-900 dark:text-white">Cek Status Kelulusan Screening &amp; Nilai</h3>
+                        </div>
+                        <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">Verifikasi hasil kelulusan peserta LK II, LK III &amp; SC via NIK Kader</p>
+                    </div>
+                </div>
+                <i class="fa-solid fa-chevron-right text-xs text-gray-400 group-hover:text-hmi-green group-hover:translate-x-0.5 transition-all"></i>
+            </button>
+
+            <!-- CARD 3: Pengajuan Permohonan Tim Pengelola (BPL) Cabang/Komisariat -->
+            <button onclick="openModal('permohonan-bpl')" data-category="events" class="link-item w-full text-left rounded-2xl bg-white dark:bg-white/[0.06] hover:bg-emerald-50/60 dark:hover:bg-white/10 p-3.5 border border-gray-200 dark:border-white/10 hover:border-hmi-green dark:hover:border-emerald-400 shadow-sm transition-all flex items-center justify-between gap-3 group active:scale-[0.99]">
+                <div class="flex items-center gap-3.5">
+                    <div class="w-11 h-11 rounded-xl bg-amber-50 dark:bg-amber-500/20 text-hmi-gold dark:text-amber-300 flex items-center justify-center text-lg shrink-0 group-hover:bg-hmi-gold group-hover:text-white transition-colors">
+                        <i class="fa-solid fa-file-signature"></i>
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <h3 class="font-display font-bold text-sm text-gray-900 dark:text-white">Pengajuan Tim Pengelola (BPL)</h3>
+                            <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-100 dark:bg-emerald-500/20 text-hmi-darkGreen dark:text-emerald-300">ONLINE</span>
+                        </div>
+                        <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">Permohonan SK Master of Training &amp; Pemandu Cabang/Komisariat</p>
+                    </div>
+                </div>
+                <i class="fa-solid fa-chevron-right text-xs text-gray-400 group-hover:text-hmi-green group-hover:translate-x-0.5 transition-all"></i>
+            </button>
+
+            <!-- CARD 4: Database & Direktori Instruktur BPL Tersertifikasi -->
+            <button onclick="openModal('direktori-instruktur')" data-category="events" class="link-item w-full text-left rounded-2xl bg-white dark:bg-white/[0.06] hover:bg-emerald-50/60 dark:hover:bg-white/10 p-3.5 border border-gray-200 dark:border-white/10 hover:border-hmi-green dark:hover:border-emerald-400 shadow-sm transition-all flex items-center justify-between gap-3 group active:scale-[0.99]">
+                <div class="flex items-center gap-3.5">
+                    <div class="w-11 h-11 rounded-xl bg-gray-100 dark:bg-white/10 text-gray-800 dark:text-gray-200 flex items-center justify-center text-lg shrink-0 group-hover:bg-hmi-black group-hover:text-amber-400 transition-colors">
+                        <i class="fa-solid fa-users-rectangle"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-display font-bold text-sm text-gray-900 dark:text-white">Database &amp; Direktori Instruktur BPL</h3>
+                        <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">Daftar pemandu bersertifikat nasional berdasarkan spesialisasi materi</p>
+                    </div>
+                </div>
+                <i class="fa-solid fa-chevron-right text-xs text-gray-400 group-hover:text-hmi-green group-hover:translate-x-0.5 transition-all"></i>
+            </button>
+
+            <!-- SECTION DIVIDER LABEL -->
+            <div data-category="docs" class="link-item pt-2 pb-0.5 flex items-center gap-2">
+                <span class="text-[11px] font-bold uppercase tracking-wider text-gray-400 dark:text-gray-500">Repositori Modul &amp; Produk Digital</span>
+                <div class="h-px bg-gray-200 dark:bg-white/10 flex-grow"></div>
+            </div>
+
+            <!-- CARD 5: Pedoman Perkaderan & Konstitusi HMI (PDF) -->
+            <button onclick="openModal('produk-pedoman')" data-category="docs" class="link-item w-full text-left rounded-2xl bg-white dark:bg-white/[0.06] hover:bg-emerald-50/60 dark:hover:bg-white/10 p-3.5 border border-gray-200 dark:border-white/10 hover:border-hmi-green dark:hover:border-emerald-400 shadow-sm transition-all flex items-center justify-between gap-3 group active:scale-[0.99]">
+                <div class="flex items-center gap-3.5">
+                    <div class="w-11 h-11 rounded-xl bg-emerald-50 dark:bg-emerald-500/20 text-hmi-darkGreen dark:text-emerald-300 flex items-center justify-center text-lg shrink-0 group-hover:bg-hmi-darkGreen group-hover:text-white transition-colors">
+                        <i class="fa-solid fa-book-quran"></i>
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <h3 class="font-display font-bold text-sm text-gray-900 dark:text-white">Pedoman Perkaderan &amp; Konstitusi HMI</h3>
+                            <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-100 dark:bg-amber-500/20 text-amber-800 dark:text-amber-300">GRATIS</span>
+                        </div>
+                        <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">E-Book PDF Resmi • 148 Halaman • 4.2 MB</p>
+                    </div>
+                </div>
+                <i class="fa-solid fa-download text-xs text-gray-400 group-hover:text-hmi-green transition-all"></i>
+            </button>
+
+            <!-- CARD 6: Template TOR & Rubrik Penilaian Screening -->
+            <button onclick="openModal('produk-template')" data-category="docs" class="link-item w-full text-left rounded-2xl bg-white dark:bg-white/[0.06] hover:bg-emerald-50/60 dark:hover:bg-white/10 p-3.5 border border-gray-200 dark:border-white/10 hover:border-hmi-green dark:hover:border-emerald-400 shadow-sm transition-all flex items-center justify-between gap-3 group active:scale-[0.99]">
+                <div class="flex items-center gap-3.5">
+                    <div class="w-11 h-11 rounded-xl bg-amber-50 dark:bg-amber-500/20 text-hmi-gold dark:text-amber-300 flex items-center justify-center text-lg shrink-0 group-hover:bg-hmi-gold group-hover:text-white transition-colors">
+                        <i class="fa-solid fa-folder-open"></i>
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <h3 class="font-display font-bold text-sm text-gray-900 dark:text-white">Template TOR &amp; Rubrik Penilaian Screening</h3>
+                            <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-100 dark:bg-emerald-500/20 text-hmi-darkGreen dark:text-emerald-300">BARU</span>
+                        </div>
+                        <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">Paket Dokumen LK I, LK II, LKK (DOCX &amp; XLSX • 2.1 MB)</p>
+                    </div>
+                </div>
+                <i class="fa-solid fa-download text-xs text-gray-400 group-hover:text-hmi-green transition-all"></i>
+            </button>
+
+            <!-- CARD 7: Layanan Konsultasi & Pengaduan Mutu Training -->
+            <button onclick="openModal('konsultasi')" data-category="all" class="link-item w-full text-left rounded-2xl bg-white dark:bg-white/[0.06] hover:bg-emerald-50/60 dark:hover:bg-white/10 p-3.5 border border-gray-200 dark:border-white/10 hover:border-hmi-green dark:hover:border-emerald-400 shadow-sm transition-all flex items-center justify-between gap-3 group active:scale-[0.99]">
+                <div class="flex items-center gap-3.5">
+                    <div class="w-11 h-11 rounded-xl bg-emerald-50 dark:bg-emerald-500/20 text-hmi-green dark:text-emerald-300 flex items-center justify-center text-lg shrink-0 group-hover:bg-hmi-green group-hover:text-white transition-colors">
+                        <i class="fa-solid fa-headset"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-display font-bold text-sm text-gray-900 dark:text-white">Layanan Konsultasi &amp; Pengaduan Mutu</h3>
+                        <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">Hubungi Bidang Litbang &amp; Penjaminan Mutu Perkaderan</p>
+                    </div>
+                </div>
+                <i class="fa-solid fa-chevron-right text-xs text-gray-400 group-hover:text-hmi-green group-hover:translate-x-0.5 transition-all"></i>
+            </button>
+
+        </div>
+
+        <!-- ==================== 4. FOOTER BRANDING ALA LYNK.ID ==================== -->
+        <footer class="px-5 pt-4 pb-8 text-center">
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 shadow-sm">
+                <span class="w-2 h-2 rounded-full bg-hmi-green"></span>
+                <span class="text-[11px] font-semibold text-gray-600 dark:text-gray-300">
+                    Powered by <strong class="text-gray-900 dark:text-white font-display">Lynk</strong> • <span class="text-hmi-green dark:text-emerald-400 font-bold">BPL HMI</span>
+                </span>
+            </div>
+            <p class="text-[10px] text-gray-400 dark:text-gray-500 mt-2.5">
+                "Yakin Usaha Sampai" • Sekretariat PB HMI, Jakarta Selatan
+            </p>
+        </footer>
+
+    </main>
+
+    <!-- ==================== INTERACTIVE BOTTOM-SHEET / CENTER MODAL ==================== -->
+    <div id="action-modal" class="fixed inset-0 z-50 hidden items-end sm:items-center justify-center bg-black/75 backdrop-blur-sm p-0 sm:p-4">
+        <div class="w-full max-w-[460px] bg-white dark:bg-hmi-charcoal text-gray-800 dark:text-gray-100 rounded-t-3xl sm:rounded-3xl shadow-2xl border border-gray-200 dark:border-white/15 overflow-hidden max-h-[88vh] flex flex-col">
+            <!-- Modal Top Handle (Mobile visual cue) -->
+            <div class="w-12 h-1.5 bg-gray-300 dark:bg-white/20 rounded-full mx-auto mt-3 sm:hidden"></div>
+            
+            <!-- Modal Header -->
+            <div class="px-5 py-4 border-b border-gray-100 dark:border-white/10 flex items-center justify-between">
+                <h3 id="modal-title" class="font-display font-bold text-base text-gray-900 dark:text-white">Detail Layanan</h3>
+                <button onclick="closeModal()" class="w-8 h-8 rounded-full bg-gray-100 dark:bg-white/10 text-gray-500 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white flex items-center justify-center">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- Modal Dynamic Body -->
+            <div id="modal-body" class="p-5 overflow-y-auto space-y-4 text-sm">
+                <!-- Diisi dinamis oleh JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== TOAST NOTIFICATION ==================== -->
+    <div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 hidden items-center gap-2.5 bg-gray-900 dark:bg-white text-white dark:text-gray-900 px-4 py-3 rounded-full shadow-2xl border border-emerald-500/40 text-xs font-semibold whitespace-nowrap">
+        <i class="fa-solid fa-circle-check text-emerald-400 dark:text-hmi-green text-sm"></i>
+        <span id="toast-text">Tautan berhasil disalin!</span>
+    </div>
+
+    <!-- ==================== JAVASCRIPT INTERACTIVITY ==================== -->
+    <script>
+        // 1. Toggle Light / Dark Mode
+        function toggleTheme() {
+            const html = document.documentElement;
+            const icon = document.getElementById('theme-icon');
+            html.classList.toggle('dark');
+
+            if (html.classList.contains('dark')) {
+                icon.className = 'fa-solid fa-sun text-sm text-amber-300';
+                showToast('Mode Gelap Hijau-Hitam Aktif');
+            } else {
+                icon.className = 'fa-solid fa-moon text-sm text-amber-300';
+                showToast('Mode Terang Hijau-Putih Aktif');
+            }
+        }
+
+        // 2. Copy Link Profile (Share Button)
+        function shareProfile() {
+            const profileUrl = 'https://lynk.id/bpl.hmi';
+            const tempInput = document.createElement('input');
+            tempInput.value = profileUrl;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+            showToast('Link lynk.id/bpl.hmi disalin ke clipboard!');
+        }
+
+        // 3. Tab Filter Kategori (Semua Tautan, Pendaftaran & Training, Modul & Dokumen)
+        function filterLinks(category) {
+            // Update styling tombol tab
+            document.querySelectorAll('.cat-tab').forEach(btn => {
+                if (btn.dataset.cat === category) {
+                    btn.className = 'cat-tab shrink-0 px-4 py-2 rounded-full text-xs font-bold bg-hmi-green text-white shadow-sm transition-all';
+                } else {
+                    btn.className = 'cat-tab shrink-0 px-4 py-2 rounded-full text-xs font-semibold bg-white dark:bg-white/5 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-white/10 hover:border-hmi-green transition-all';
+                }
+            });
+
+            // Filter card links
+            document.querySelectorAll('.link-item').forEach(item => {
+                const itemCat = item.dataset.category;
+                if (category === 'all' || itemCat === category || itemCat === 'all') {
+                    item.classList.remove('hidden');
+                } else {
+                    item.classList.add('hidden');
+                }
+            });
+        }
+
+        // 4. Modal Controller & Dynamic Templates
+        const modal = document.getElementById('action-modal');
+        const modalTitle = document.getElementById('modal-title');
+        const modalBody = document.getElementById('modal-body');
+
+        function openModal(type) {
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+
+            if (type === 'daftar-sc') {
+                modalTitle.innerText = 'Pendaftaran Senior Course (SC) 2026';
+                modalBody.innerHTML = `
+                    <div class="p-3 rounded-xl bg-emerald-50 dark:bg-emerald-500/15 border border-emerald-200 dark:border-emerald-500/30 text-xs text-emerald-900 dark:text-emerald-200">
+                        <strong>Syarat Utama:</strong> Kader HMI Lulus LK II, melampirkan Surat Rekomendasi BPL/Cabang, serta menyusun Sindikat/Makalah Wajib.
+                    </div>
+                    <form onsubmit="handleScSubmit(event)" class="space-y-3">
+                        <div>
+                            <label class="block text-xs font-semibold mb-1">Nama Lengkap Kader</label>
+                            <input type="text" id="sc-nama" required placeholder="Contoh: Ahmad Fauzan Al-Hakim" class="w-full px-3.5 py-2.5 rounded-xl border border-gray-300 dark:border-white/15 bg-white dark:bg-white/5 text-xs focus:ring-2 focus:ring-hmi-green outline-none">
+                        </div>
+                        <div class="grid grid-cols-2 gap-2.5">
+                            <div>
+                                <label class="block text-xs font-semibold mb-1">Asal Cabang</label>
+                                <input type="text" id="sc-cabang" required placeholder="Cabang Makassar" class="w-full px-3.5 py-2.5 rounded-xl border border-gray-300 dark:border-white/15 bg-white dark:bg-white/5 text-xs focus:ring-2 focus:ring-hmi-green outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold mb-1">No. WhatsApp</label>
+                                <input type="tel" required placeholder="0812xxxxxxxx" class="w-full px-3.5 py-2.5 rounded-xl border border-gray-300 dark:border-white/15 bg-white dark:bg-white/5 text-xs focus:ring-2 focus:ring-hmi-green outline-none">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold mb-1">Pilihan Spesialisasi Materi</label>
+                            <select class="w-full px-3.5 py-2.5 rounded-xl border border-gray-300 dark:border-white/15 bg-white dark:bg-hmi-charcoal text-xs focus:ring-2 focus:ring-hmi-green outline-none">
+                                <option>Nilai-Nilai Dasar Perjuangan (NDP)</option>
+                                <option>Konstitusi HMI</option>
+                                <option>Sejarah Perjuangan HMI</option>
+                                <option>Mission HMI</option>
+                                <option>Kepemimpinan Manajemen Organisasi (KMO)</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="w-full py-3 rounded-xl bg-hmi-green hover:bg-hmi-darkGreen text-white font-display font-bold text-xs shadow-md transition-all">
+                            Kirim Formulir Pendaftaran
+                        </button>
+                    </form>
+                    <div id="sc-result" class="hidden p-3.5 rounded-xl bg-amber-50 dark:bg-amber-500/15 border border-amber-300 dark:border-amber-500/30 text-xs"></div>
+                `;
+            } else if (type === 'cek-screening') {
+                modalTitle.innerText = 'Cek Status Kelulusan Screening';
+                modalBody.innerHTML = `
+                    <p class="text-xs text-gray-600 dark:text-gray-300">
+                        Masukkan <strong>NIK Kader / ID Registrasi</strong> untuk mengecek status kelulusan screening dan rekap nilai sementara.
+                    </p>
+                    <div class="space-y-2.5">
+                        <input type="text" id="nik-field" placeholder="Masukkan NIK (Contoh: HMI-2026-0412)" class="w-full px-3.5 py-2.5 rounded-xl border border-gray-300 dark:border-white/15 bg-white dark:bg-white/5 text-xs focus:ring-2 focus:ring-hmi-green outline-none">
+                        <div class="flex items-center gap-2 text-[11px] text-gray-500">
+                            <span>Contoh NIK:</span>
+                            <button type="button" onclick="quickCheckNik('HMI-2026-0412')" class="text-hmi-green dark:text-emerald-400 font-bold underline">HMI-2026-0412</button>
+                            <span>•</span>
+                            <button type="button" onclick="quickCheckNik('HMI-2026-0899')" class="text-hmi-gold dark:text-amber-300 font-bold underline">HMI-2026-0899</button>
+                        </div>
+                        <button onclick="runCheckNik()" class="w-full py-2.5 rounded-xl bg-hmi-green hover:bg-hmi-darkGreen text-white font-bold text-xs transition-all">
+                            Periksa Hasil Screening
+                        </button>
+                    </div>
+                    <div id="nik-output" class="hidden p-3.5 rounded-xl border text-xs space-y-1.5"></div>
+                `;
+            } else if (type === 'permohonan-bpl') {
+                modalTitle.innerText = 'Pengajuan Tim Pengelola (BPL)';
+                modalBody.innerHTML = `
+                    <p class="text-xs text-gray-600 dark:text-gray-300">
+                        Layanan pengajuan resmi <strong>Master of Training (MoT)</strong> dan Tim Pemandu untuk pelaksanaan LK I, LK II, atau LKK tingkat Komisariat/Cabang.
+                    </p>
+                    <form onsubmit="handlePermohonanSubmit(event)" class="space-y-3">
+                        <div>
+                            <label class="block text-xs font-semibold mb-1">Struktur Pengaju (Komisariat / Cabang)</label>
+                            <input type="text" required placeholder="Contoh: HMI Komisariat Fakultas Hukum" class="w-full px-3.5 py-2.5 rounded-xl border border-gray-300 dark:border-white/15 bg-white dark:bg-white/5 text-xs outline-none">
+                        </div>
+                        <div class="grid grid-cols-2 gap-2.5">
+                            <div>
+                                <label class="block text-xs font-semibold mb-1">Jenjang Training</label>
+                                <select class="w-full px-3.5 py-2.5 rounded-xl border border-gray-300 dark:border-white/15 bg-white dark:bg-hmi-charcoal text-xs outline-none">
+                                    <option>Latihan Kader I (LK I)</option>
+                                    <option>Latihan Kader II (LK II)</option>
+                                    <option>Latihan Khusus Kohati (LKK)</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold mb-1">Tanggal Pelaksanaan</label>
+                                <input type="date" required class="w-full px-3.5 py-2.5 rounded-xl border border-gray-300 dark:border-white/15 bg-white dark:bg-white/5 text-xs outline-none">
+                            </div>
+                        </div>
+                        <button type="submit" class="w-full py-3 rounded-xl bg-hmi-black dark:bg-hmi-green text-white font-bold text-xs transition-all">
+                            Ajukan Permohonan SK Pengelola
+                        </button>
+                    </form>
+                `;
+            } else if (type === 'direktori-instruktur') {
+                modalTitle.innerText = 'Direktori Instruktur BPL Tersertifikasi';
+                modalBody.innerHTML = `
+                    <p class="text-xs text-gray-500 dark:text-gray-400">Daftar perwakilan Master of Training (MoT) Nasional aktif:</p>
+                    <div class="space-y-2.5">
+                        <div class="p-3 rounded-xl border border-gray-200 dark:border-white/10 bg-slate-50 dark:bg-white/5 flex items-center justify-between">
+                            <div>
+                                <h4 class="font-bold text-xs text-gray-900 dark:text-white">Ahmad Fauzan Al-Hakim, M.Pd.</h4>
+                                <p class="text-[11px] text-hmi-green dark:text-emerald-400">Spesialis: Nilai-Nilai Dasar Perjuangan (NDP)</p>
+                                <span class="text-[10px] text-gray-400">BPL Cabang Ciputat • Alumni SC 2018</span>
+                            </div>
+                            <span class="px-2 py-0.5 rounded bg-emerald-100 dark:bg-emerald-500/20 text-hmi-darkGreen dark:text-emerald-300 text-[10px] font-bold">MoT</span>
+                        </div>
+                        <div class="p-3 rounded-xl border border-gray-200 dark:border-white/10 bg-slate-50 dark:bg-white/5 flex items-center justify-between">
+                            <div>
+                                <h4 class="font-bold text-xs text-gray-900 dark:text-white">Siti Nurhaliza Rahmah, S.H., M.H.</h4>
+                                <p class="text-[11px] text-hmi-green dark:text-emerald-400">Spesialis: Konstitusi HMI &amp; Hukum</p>
+                                <span class="text-[10px] text-gray-400">BPL Cabang Makassar • Alumni SC 2019</span>
+                            </div>
+                            <span class="px-2 py-0.5 rounded bg-emerald-100 dark:bg-emerald-500/20 text-hmi-darkGreen dark:text-emerald-300 text-[10px] font-bold">MoT</span>
+                        </div>
+                        <div class="p-3 rounded-xl border border-gray-200 dark:border-white/10 bg-slate-50 dark:bg-white/5 flex items-center justify-between">
+                            <div>
+                                <h4 class="font-bold text-xs text-gray-900 dark:text-white">M. Ridwan Kamiluddin, M.Si.</h4>
+                                <p class="text-[11px] text-hmi-green dark:text-emerald-400">Spesialis: Sejarah Perjuangan HMI</p>
+                                <span class="text-[10px] text-gray-400">BPL Cabang Yogyakarta • Alumni SC 2017</span>
+                            </div>
+                            <span class="px-2 py-0.5 rounded bg-emerald-100 dark:bg-emerald-500/20 text-hmi-darkGreen dark:text-emerald-300 text-[10px] font-bold">MoT</span>
+                        </div>
+                    </div>
+                `;
+            } else if (type === 'produk-pedoman') {
+                modalTitle.innerText = 'Produk Digital: Pedoman Perkaderan HMI';
+                modalBody.innerHTML = `
+                    <div class="p-4 rounded-2xl bg-gradient-to-br from-hmi-black to-hmi-darkGreen text-white space-y-2">
+                        <span class="px-2.5 py-0.5 rounded bg-amber-400 text-black text-[10px] font-extrabold">FREE DIGITAL DOWNLOAD</span>
+                        <h4 class="font-display font-bold text-base">Pedoman Perkaderan &amp; Konstitusi HMI (Edisi Mutakhir)</h4>
+                        <p class="text-xs text-gray-300">Format PDF • 148 Halaman • Ukuran File 4.2 MB</p>
+                    </div>
+                    <p class="text-xs text-gray-600 dark:text-gray-300 leading-relaxed">
+                        Berisi naskah baku falsafah perkaderan HMI, silabus kurikulum LK I, LK II, LK III, Senior Course, serta AD/ART HMI terbaru.
+                    </p>
+                    <button onclick="downloadFile('Pedoman_Perkaderan_Konstitusi_HMI.pdf')" class="w-full py-3 rounded-xl bg-hmi-green hover:bg-hmi-darkGreen text-white font-display font-bold text-xs flex items-center justify-center gap-2 shadow-md">
+                        <i class="fa-solid fa-file-arrow-down"></i>
+                        <span>Unduh File PDF Sekarang (Gratis)</span>
+                    </button>
+                `;
+            } else if (type === 'produk-template') {
+                modalTitle.innerText = 'Paket Template TOR & Rubrik Screening';
+                modalBody.innerHTML = `
+                    <div class="p-4 rounded-2xl bg-amber-50 dark:bg-amber-500/15 border border-amber-200 dark:border-amber-500/30 space-y-1.5">
+                        <span class="text-[10px] font-bold uppercase text-amber-800 dark:text-amber-300">Paket Administrasi BPL • ZIP (2.1 MB)</span>
+                        <h4 class="font-display font-bold text-sm text-gray-900 dark:text-white">6 Berkas Standar Pengelolaan Training</h4>
+                    </div>
+                    <ul class="text-xs space-y-1.5 text-gray-600 dark:text-gray-300">
+                        <li><i class="fa-solid fa-check text-hmi-green mr-1.5"></i> Template TOR Pemateri &amp; Kerangka Acuan</li>
+                        <li><i class="fa-solid fa-check text-hmi-green mr-1.5"></i> Rubrik Penilaian Screening (BTQ, NDP, Konstitusi, Makalah)</li>
+                        <li><i class="fa-solid fa-check text-hmi-green mr-1.5"></i> Format Berita Acara Kelulusan &amp; Rapor Peserta</li>
+                    </ul>
+                    <button onclick="downloadFile('Paket_Template_TOR_Screening_BPL.zip')" class="w-full py-3 rounded-xl bg-hmi-black dark:bg-hmi-green text-white font-display font-bold text-xs flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-download"></i>
+                        <span>Unduh Paket Template (ZIP)</span>
+                    </button>
+                `;
+            } else if (type === 'konsultasi') {
+                modalTitle.innerText = 'Konsultasi & Pengaduan Mutu Training';
+                modalBody.innerHTML = `
+                    <p class="text-xs text-gray-600 dark:text-gray-300">
+                        Sampaikan konsultasi kurikulum, pendampingan BPL Cabang, atau laporan penjaminan mutu pelaksanaan training.
+                    </p>
+                    <div class="p-3.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 space-y-2 text-xs">
+                        <div class="flex items-center justify-between">
+                            <span class="text-gray-500">Hotline Sekretariat:</span>
+                            <span class="font-bold text-gray-900 dark:text-white">+62 812-1947-2026</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-gray-500">Email Resmi:</span>
+                            <span class="font-bold text-hmi-green dark:text-emerald-400">mutu@bplpbhmi.or.id</span>
+                        </div>
+                    </div>
+                    <button onclick="closeModal(); showToast('Menghubungkan ke WhatsApp Admin BPL...')" class="w-full py-3 rounded-xl bg-[#25D366] hover:brightness-95 text-white font-display font-bold text-xs flex items-center justify-center gap-2 shadow-md">
+                        <i class="fa-brands fa-whatsapp text-base"></i>
+                        <span>Chat WhatsApp Admin BPL</span>
+                    </button>
+                `;
+            }
+        }
+
+        function closeModal() {
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        // Form Handlers inside Modal
+        function handleScSubmit(e) {
+            e.preventDefault();
+            const nama = document.getElementById('sc-nama').value;
+            const cabang = document.getElementById('sc-cabang').value;
+            const regId = 'HMI-2026-' + Math.floor(1000 + Math.random() * 9000);
+            const resBox = document.getElementById('sc-result');
+            resBox.classList.remove('hidden');
+            resBox.innerHTML = `
+                <p class="font-bold text-hmi-darkGreen dark:text-amber-300"><i class="fa-solid fa-circle-check mr-1"></i> Pendaftaran SC Berhasil!</p>
+                <p class="mt-1">Kanda/Yunda <strong>${nama}</strong> (${cabang}) terdaftar. Simpan ID Screening Anda: <strong class="font-mono bg-white dark:bg-black/40 px-1.5 py-0.5 rounded">${regId}</strong></p>
+            `;
+            showToast('Pendaftaran SC berhasil dikirim!');
+        }
+
+        function quickCheckNik(nik) {
+            document.getElementById('nik-field').value = nik;
+            runCheckNik();
+        }
+
+        function runCheckNik() {
+            const val = document.getElementById('nik-field').value.trim().toUpperCase();
+            const out = document.getElementById('nik-output');
+            out.classList.remove('hidden');
+
+            if (val === 'HMI-2026-0412') {
+                out.className = 'p-3.5 rounded-xl border border-emerald-300 bg-emerald-50 dark:bg-emerald-500/15 text-emerald-950 dark:text-emerald-100 text-xs space-y-1';
+                out.innerHTML = `
+                    <div class="font-bold text-hmi-green dark:text-emerald-300"><i class="fa-solid fa-circle-check mr-1"></i> LULUS SCREENING (SKOR: 86.5)</div>
+                    <p><strong>Nama:</strong> Muhammad Al-Fatih (Cabang Ciputat)</p>
+                    <p><strong>Agenda:</strong> Latihan Kader II (LK II) Nasional</p>
+                `;
+            } else if (val === 'HMI-2026-0899') {
+                out.className = 'p-3.5 rounded-xl border border-amber-300 bg-amber-50 dark:bg-amber-500/15 text-amber-950 dark:text-amber-100 text-xs space-y-1';
+                out.innerHTML = `
+                    <div class="font-bold text-amber-800 dark:text-amber-300"><i class="fa-solid fa-hourglass-half mr-1"></i> VERIFIKASI MAKALAH</div>
+                    <p><strong>Nama:</strong> Aisyah Humaira (Cabang Yogyakarta)</p>
+                    <p><strong>Agenda:</strong> Senior Course (SC) Nasional</p>
+                `;
+            } else if (!val) {
+                out.className = 'p-3.5 rounded-xl border border-red-200 bg-red-50 text-red-700 text-xs';
+                out.innerHTML = 'Masukkan NIK Kader terlebih dahulu.';
+            } else {
+                out.className = 'p-3.5 rounded-xl border border-gray-200 dark:border-white/15 bg-slate-50 dark:bg-white/5 text-xs';
+                out.innerHTML = `ID <strong>${val}</strong> terdaftar dalam antrean screening aktif.`;
+            }
+        }
+
+        function handlePermohonanSubmit(e) {
+            e.preventDefault();
+            closeModal();
+            showToast('Permohonan Tim Pengelola BPL berhasil dikirim!');
+        }
+
+        function downloadFile(fileName) {
+            closeModal();
+            showToast(`Mengunduh ${fileName}...`);
+        }
+
+        // Toast Helper
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-text').innerText = message;
+            toast.classList.remove('hidden');
+            toast.classList.add('flex');
+            setTimeout(() => {
+                toast.classList.add('hidden');
+                toast.classList.remove('flex');
+            }, 3000);
+        }
+
+        // Close modal when clicking outside card
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeModal();
+        });
+    </script>
+</body>
+</html>
